@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{AD2707EC-FF93-4919-9B56-3FBEB4787056}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>caesar_encode</RootNamespace>
-    <AssemblyName>caesar_encode</AssemblyName>
+    <RootNamespace>Encode</RootNamespace>
+    <AssemblyName>Encode</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

