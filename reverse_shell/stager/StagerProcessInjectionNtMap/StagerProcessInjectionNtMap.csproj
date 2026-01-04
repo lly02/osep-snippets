@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{949A57E0-82CF-454D-887E-1535FD22AC1F}</ProjectGuid>
+    <ProjectGuid>{E8036197-7C6D-4DEC-9991-C20CF215D5E8}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>process_injection</RootNamespace>
-    <AssemblyName>process-injection</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <RootNamespace>StagerProcessInjectionNtMap</RootNamespace>
+    <AssemblyName>StagerProcessInjectionNtMap</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
